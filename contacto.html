@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Contacto</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -19,43 +21,40 @@
         </div>
 
 
-        <form>
+        <form action="http://localhost:3000/register" method="POST">
             <div>
-               
-                <input type="text" name="nombres" placeholder="nombres"/>
+                <input type="text" name="username" placeholder="Nombre de usuario" required>
             </div>
-
             <div>
-                
-                <input type="text" name="apellidos" placeholder="apellidos"/> 
+                <input type="email" name="email" placeholder="Correo electrónico" required>
             </div>
-
             <div>
-                
-                <input type="number" name="edad" placeholder="edad"/>
+                <input type="password" name="password" placeholder="Contraseña" required>
             </div>
-
-            <div>
-                
-                <input type="number" name="celular" placeholder="celular"/>
-            </div>
-
-            <div>
-                
-                <input type="text" name="email" placeholder="email"/>
-            </div>
-
-            <div>
-               
-                <input type="text" name="mensaje" placeholder="Escribe aquí tu mensaje"/>
-
-            </div>
-
-            <button type="submit">ENVIAR</button>
-
+            <button type="submit">Registrarse</button>
         </form>
+        
 
     </main>    
 </body>
+<script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      const response = await fetch(e.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.text();
+      alert(result);
+    });
+  </script>
+  
 </html>
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios de Domótica</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+</head>
+<body>
+  <header class="header-domotica">
+        <h1>Servicios de Domótica</h1>
+        <nav>
+            <a href="index.html">INICIO</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>¿Qué ofrecemos?</h2>
+            <p>Proporcionamos soluciones de domótica que transforman tu hogar en un espacio inteligente y eficiente.</p>
+            <img src="domotica.jpg" alt="Servicios de Domótica" >
+            <a href="comprar.html" class="boton">Contratar Servicio</a>
+        </section>
+    </main>
+    <footer>
+        <p>Este es el footer de mi página.</p>
+        <h4>Contáctanos</h4>
+        <a href="./contacto.html">Formulario de contacto</a>
+    </footer>
+</body>
+<script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      const response = await fetch(e.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.text();
+      alert(result);
+    });
+  </script>
+  
+</html>
+

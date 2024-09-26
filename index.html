@@ -4,14 +4,28 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CDH MAKER </title>
+        <link rel="stylesheet" href="estilos.css">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
     </head>
 <body>
     <header>
         <h1>CDH MAKER INDUSTRIAS</h1>
-        <span>HOME</span>
-        <span>Servicios1</span>
-        <span>Servicios2</span>
-        <span>Servicios3</span>
+
+        <div class="nav-login-registro">
+            <a href="login.html" class="boton boton-login">Iniciar Sesión</a>
+            <a href="registro.html" class="boton boton-registro">Registrarse</a>
+       </div>
+
+        <hr/>
+        <nav class="nav-botones"> 
+            <a href="asesoria.html" class="boton">Asesoría en Automatización</a>
+            <a href="impresion.html" class="boton">Impresión y Modelado 3D</a>
+            <a href="domotica.html" class="boton">Servicios de Domótica</a>
+            <a href="drones.html" class="boton">Servicios con Drone</a>
+            <a href="stl.html" class="boton">Coleccion de STL</a>
+        </nav>
+        
+        
     </header>
          
     <main>
@@ -62,10 +76,26 @@
       <h4>Contactanos</h4>
       <a href="./contacto.html">Formulario de contacto</a>
     </footer>
-
-
-
-             
+                 
 </body>
+<script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      const response = await fetch(e.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.text();
+      alert(result);
+    });
+  </script>
+  
 </html>
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - CDH Maker</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <h1>Iniciar Sesión</h1>
+    </header>
+    <main>
+        <form id="loginForm" action="/api/login" method="POST">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="mensajeError" ></p>
+    </main>
+    <script>
+        document.querySelector('#loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            const response = await fetch(e.target.action, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                // Redirigir a la página de inicio si el login es exitoso
+                window.location.href = "index.html";
+            } else {
+                const result = await response.json();
+                document.getElementById('mensajeError').innerText = result.message + ' ¿Deseas registrarte?';
+                // Lógica para abrir el formulario de registro si lo deseas
+            }
+        });
+    </script>
+</body>
+</html>

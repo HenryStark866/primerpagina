@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir y Descargar Archivos STL</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+</head>
+<body>
+    <header class="header-stl">
+        <h1>Gestión de Archivos STL</h1>
+        <nav>
+            <a href="/">INICIO</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Subir un Archivo STL</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <label for="fileInput">Selecciona un archivo STL:</label>
+                <input 
+                    type="file" 
+                    id="fileInput" 
+                    name="file" 
+                    accept=".stl" 
+                    required
+                >
+                <button type="submit">Subir Archivo</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Archivos Disponibles</h2>
+            <div id="message"></div> <!-- Mensaje para errores o notificaciones -->
+            <ul id="fileList"></ul>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                alert('Archivo subido con éxito.');
+                loadFiles();
+            } else {
+                alert('Error al subir el archivo.');
+            }
+        });
+
+        // Aquí es donde va el nuevo código para cargar los archivos
+        async function loadFiles() {
+            const response = await fetch('/api/files');
+            const messageDiv = document.getElementById('message');
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = ''; // Limpiar lista existente
+
+            if (response.ok) {
+                const files = await response.json();
+                if (files.length > 0) {
+                    files.forEach(file => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <a href="/uploads/${file}" download>${file}</a>
+                            <button onclick="deleteFile('${file}')">Eliminar</button>
+                        `;
+                        fileList.appendChild(li);
+                    });
+                } else {
+                    messageDiv.textContent = 'No hay archivos disponibles.';
+                }
+            } else {
+                messageDiv.textContent = 'Error al cargar archivos.';
+            }
+        }
+
+        // Cargar archivos al inicio
+        loadFiles();
+    </script>
+</body>
+</html>
+
+

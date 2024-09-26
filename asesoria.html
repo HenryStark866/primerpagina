@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesoría en Automatización</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+
+</head>
+<body>
+  <header class="header-asesoria">
+        <h1>Asesoría en Automatización</h1>
+        <nav>
+            <a href="index.html">INICIO</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>¿Qué ofrecemos?</h2>
+            <p>En CDH MAKER, brindamos asesoría especializada en automatización industrial, ayudando a las empresas a mejorar su eficiencia y productividad.</p>
+            <img src="asesoria.jpg" alt="Asesoría en Automatización" >
+            <a href="comprar.html" class="boton">Contratar Servicio</a>
+        </section>
+    </main>
+    <footer>
+        <p>Este es el footer de mi página.</p>
+        <h4>Contáctanos</h4>
+        <a href="./contacto.html">Formulario de contacto</a>
+    </footer>
+</body>
+
+<script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      const response = await fetch(e.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.text();
+      alert(result);
+    });
+  </script>
+  
+</html>
+
